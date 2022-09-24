@@ -42,7 +42,7 @@ class Stack{
         }
     }
     topf(){
-        return this.top.item;
+        return !this.isempty()? this.top.item:'No item';
     }
 }
 onload=function(){
@@ -198,20 +198,19 @@ function eval(simpl){
     let num='';
     let stack=new Stack();
 for(let i=0;i<simpl.length;i++){
-    if(!isNaN(+simpl[i])||simpl[i]=='.'||((simpl[i]=='+'||simpl[i]=='-')&&(!isNaN(simpl[i+1])))){
+    if(!isNaN(+simpl[i])||simpl[i]=='.'||((simpl[i]=='+'||simpl[i]=='-')&&((i!=simpl.length-1)&&!isNaN(simpl[i+1])))){
     num+=simpl[i];
     continue;
     
 }
 else if (simpl[i]==','){
        
-       
+       if(num!=''){
         stack.push(num);
-        num=''
+        num='';}
         continue
     }
     else if (simpl[i]=='+'||simpl[i]=='-'||simpl[i]=='*'||simpl[i]=='/'){
-        
         let secnum=parseFloat(stack.topf());
         stack.pop();
         let firnum=parseFloat(stack.topf());
@@ -234,7 +233,6 @@ else if (simpl[i]==','){
 
         }
         stack.push(total);
-       i++;
 
     }
 
